@@ -1,0 +1,35 @@
+body {
+  background-color: rgb(203, 248, 233);
+}
+
+.full_table {
+  border: 5px solid #000;
+  margin: 20px 0;
+}
+
+.full_table td,
+.full_table th {
+  border: 3px solid rgb(0, 0, 0);
+  padding: 10px;
+}
+
+.one_line_table {
+  border: 3px solid #d1601f;
+  margin: 10px 0;
+}
+
+.one_line_table td,
+.one_line_table th {
+  border: 1px solid #d1601f;
+  padding: 5px;
+}
+
+.deleteForm {
+  margin: 0;
+  padding: 0;
+}
+
+.deleteButton {
+  width: 100%;
+  height: 100%;
+}
