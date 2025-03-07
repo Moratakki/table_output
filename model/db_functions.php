@@ -59,10 +59,10 @@ function getDoctorById($pdo)
 
 
 
-function deleteDoctorByID($pdo)
+function deleteDoctorByID($pdo, $id)
 {
     try {
-        $pdo->exec("DELETE FROM doctors WHERE doctor_id = " . $_POST['deleteDoctor']);
+        $pdo->exec("DELETE FROM doctors WHERE doctor_id = $id");
     } catch (PDOException $e) {
         die('Ошибка при удалении доктора из таблицы по ID: ' . $e->getMessage());
     }

@@ -9,7 +9,7 @@ if (isset($_POST['doctorID'])) {
     include 'oneRowTable.html.php';
 }
 if (isset($_POST['deleteDoctor'])) {
-    deleteDoctorByID($pdo);
+    deleteDoctorByID($pdo, $_POST['deleteDoctor']);
 }
 ?>
 <!DOCTYPE html>
