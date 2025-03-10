@@ -1,23 +1,24 @@
 <?php
 
-function connectToDB($DB_HOST, $DB_NAME, $DB_USER, $DB_PASS)
-{
-    try {
-        $pdo = new PDO(
-            "mysql:host=$DB_HOST;dbname=$DB_NAME;charset=utf8mb4",
-            $DB_USER,
-            $DB_PASS,
-            [
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
-                PDO::ATTR_EMULATE_PREPARES => true,
-                PDO::ATTR_STRINGIFY_FETCHES => false
-            ]
-        );
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $pdo;
-    } catch (PDOException $e) {
-        die('Невозможно подключиться к серверу баз данных: ' . $e->getMessage());
-    }
+define('__ROOT__', dirname(dirname(__FILE__)));
+
+require_once(__ROOT__ . '/config.php');
+
+try {
+    $pdo = new PDO(
+        "mysql:host=$DB_HOST;dbname=$DB_NAME;charset=utf8mb4",
+        $DB_USER,
+        $DB_PASS,
+        [
+            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4'",
+            PDO::ATTR_EMULATE_PREPARES => true,
+            PDO::ATTR_STRINGIFY_FETCHES => false
+        ]
+    );
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+} catch (PDOException $e) {
+    die('Невозможно подключиться к серверу баз данных: ' . $e->getMessage());
 }
 
 
@@ -66,5 +67,23 @@ function deleteDoctorByID($pdo, $id)
     } catch (PDOException $e) {
         die('Ошибка при удалении доктора из таблицы по ID: ' . $e->getMessage());
     }
-    header("Location: .");
+}
+
+
+
+function addDoctor($pdo, $firstname, $lastname, $specialty)
+{
+    try {
+        $stmt = $pdo->prepare("
+        INSERT INTO doctors(first_name, last_name, specialty)
+        VALUES(:first_name, :last_name, :specialty)
+        ");
+        $stmt->execute([
+            ":first_name" => $firstname,
+            ":last_name" => $lastname,
+            ":specialty" => $specialty
+        ]);
+    } catch (PDOException $e) {
+        die('Ошибка при добавлении доктора в таблицу: ' . $e->getMessage());
+    }
 }
