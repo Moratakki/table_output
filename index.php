@@ -44,7 +44,7 @@ if (isset($_POST['doctorID'])) {
                             <td> <?php echo $val; ?></td>
                         <?php endforeach; ?>
                         <td>
-                            <form action="controllers/deleteDoctorByID.php" method="post" class="deleteForm">
+                            <form action="controllers/deleteDoctorByIDController.php" method="post" class="deleteForm">
                                 <input class="deleteButton" type="submit" value="Удалить">
                                 <input type="hidden" name="deleteDoctor" value="<?php echo $doctor['doctor_id'] ?>">
                             </form>
