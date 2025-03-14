@@ -1,3 +1,8 @@
+<?php
+include '../model/db_functions.php';
+$departments = getDepartments($pdo);
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -18,7 +23,14 @@
                 <label for="lastname">Фамилия: </label><input type="text" name="lastname">
             </div>
             <div>
-                <label for="specialty">Специальность: </label><input type="text" name="specialty">
+                <label for="specialty">Специальность: </label>
+                <select name="specialty">
+                    <?php foreach ($departments as $department) {
+                        $specialty = $department['specialty_name'];
+                        echo "<option>$specialty</option>";
+                    }
+                    ?>
+                </select>
             </div>
             <div>
                 <input type="submit" value="Добавить">

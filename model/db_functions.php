@@ -81,9 +81,18 @@ function addDoctor($pdo, $firstname, $lastname, $specialty)
         $stmt->execute([
             ":first_name" => $firstname,
             ":last_name" => $lastname,
-            ":specialty" => $specialty
+            ":specialty" => "$specialty"
         ]);
     } catch (PDOException $e) {
         die('Ошибка при добавлении доктора в таблицу: ' . $e->getMessage());
+    }
+}
+
+function getDepartments($pdo)
+{
+    try {
+        return $pdo->query('SELECT * FROM departments', PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        die('Ошибка при извлечение всех отделов из таблицы: ' . $e->getMessage());
     }
 }
